@@ -21,3 +21,5 @@ application-prod.*
 logs.*
 
 dist
+
+.vscode
