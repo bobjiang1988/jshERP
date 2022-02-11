@@ -203,10 +203,12 @@ public class AccountHeadService {
         }
         User userInfo=userService.getCurrentUser();
         String [] idArray=StringUtil.strToStringArr(ids);
-        //删除主表
-        accountItemMapperEx.batchDeleteAccountItemByHeadIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
-        //删除子表
-        accountHeadMapperEx.batchDeleteAccountHeadByIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
+        if (idArray.length > 0) {
+            //删除主表
+            accountItemMapperEx.batchDeleteAccountItemByHeadIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
+            //删除子表
+            accountHeadMapperEx.batchDeleteAccountHeadByIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
+        }
         logService.insertLog("财务", sb.toString(),
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
         return 1;

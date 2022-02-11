@@ -299,7 +299,9 @@ public class MaterialExtendService {
         String [] idArray=StringUtil.strToStringArr(ids);
         int result = 0;
         try{
-            result = materialExtendMapperEx.batchDeleteMaterialExtendByIds(idArray);
+            if (idArray.length > 0) {
+                result = materialExtendMapperEx.batchDeleteMaterialExtendByIds(idArray);
+            }
         }catch(Exception e){
             JshException.writeFail(logger, e);
         }

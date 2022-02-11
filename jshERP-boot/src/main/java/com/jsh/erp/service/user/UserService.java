@@ -275,7 +275,10 @@ public class UserService {
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
         String idsArray[]=StringUtil.strToStringArr(ids);
         try{
-            result=userMapperEx.batDeleteOrUpdateUser(idsArray,BusinessConstants.USER_STATUS_DELETE);
+            if (idsArray.length > 0) {
+                result = userMapperEx.batDeleteOrUpdateUser(idsArray,
+                        BusinessConstants.USER_STATUS_DELETE);
+            }
         }catch(Exception e){
             JshException.writeFail(logger, e);
         }

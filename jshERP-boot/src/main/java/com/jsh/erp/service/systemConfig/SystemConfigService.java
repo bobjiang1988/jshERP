@@ -140,7 +140,7 @@ public class SystemConfigService {
         try{
             if(userService.checkIsTestUser()) {
                 result=-1;
-            } else {
+            } else if(idArray.length > 0) {
                 result = systemConfigMapperEx.batchDeleteSystemConfigByIds(new Date(), userInfo == null ? null : userInfo.getId(), idArray);
             }
         }catch(Exception e){

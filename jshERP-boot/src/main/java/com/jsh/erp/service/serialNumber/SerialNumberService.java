@@ -171,7 +171,10 @@ public class SerialNumberService {
         String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
         try{
-            result = serialNumberMapperEx.batchDeleteSerialNumberByIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
+            if (idArray.length > 0) {
+                result = serialNumberMapperEx.batchDeleteSerialNumberByIds(new Date(),
+                        userInfo == null ? null : userInfo.getId(), idArray);
+            }
         }catch(Exception e){
             JshException.writeFail(logger, e);
         }
@@ -288,7 +291,10 @@ public class SerialNumberService {
         int result=0;
         try{
             String [] snArray=StringUtil.strToStringArr(snList);
-            result = serialNumberMapperEx.sellSerialNumber(materialId, outBillNo, snArray, new Date(),user==null?null:user.getId());
+            if (snArray.length > 0) {
+                result = serialNumberMapperEx.sellSerialNumber(materialId, outBillNo, snArray,
+                        new Date(), user == null ? null : user.getId());
+            }
         }catch(Exception e){
             JshException.writeFail(logger, e);
         }

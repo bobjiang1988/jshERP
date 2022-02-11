@@ -186,8 +186,10 @@ public class DepotService {
         String [] idArray=StringUtil.strToStringArr(ids);
         //校验单据子表	jsh_depot_item
         List<DepotItem> depotItemList=null;
-        try{
-            depotItemList = depotItemMapperEx.getDepotItemListListByDepotIds(idArray);
+        try {
+            if (idArray.length > 0) {
+                depotItemList = depotItemMapperEx.getDepotItemListListByDepotIds(idArray);
+            }
         }catch(Exception e){
             JshException.readFail(logger, e);
         }

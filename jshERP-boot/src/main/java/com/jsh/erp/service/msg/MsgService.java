@@ -219,7 +219,9 @@ public class MsgService {
         String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
         try{
-            result=msgMapperEx.batchDeleteMsgByIds(idArray);
+            if (idArray.length > 0) {
+                result = msgMapperEx.batchDeleteMsgByIds(idArray);
+            }
         }catch(Exception e){
             logger.error("异常码[{}],异常提示[{}],异常[{}]",
                     ExceptionConstants.DATA_WRITE_FAIL_CODE, ExceptionConstants.DATA_WRITE_FAIL_MSG,e);

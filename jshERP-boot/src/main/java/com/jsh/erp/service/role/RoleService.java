@@ -177,7 +177,10 @@ public class RoleService {
         String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
         try{
-            result=roleMapperEx.batchDeleteRoleByIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
+            if (idArray.length > 0) {
+                result = roleMapperEx.batchDeleteRoleByIds(new Date(),
+                        userInfo == null ? null : userInfo.getId(), idArray);
+            }
         }catch(Exception e){
             JshException.writeFail(logger, e);
         }

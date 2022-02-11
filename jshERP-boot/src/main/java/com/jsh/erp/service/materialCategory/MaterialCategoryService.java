@@ -173,7 +173,9 @@ public class MaterialCategoryService {
         //校验产品表	jsh_material
         List<Material> materialList=null;
         try{
-            materialList= materialMapperEx.getMaterialListByCategoryIds(idArray);
+            if (idArray.length > 0) {
+                materialList = materialMapperEx.getMaterialListByCategoryIds(idArray);
+            }
         }catch(Exception e){
             JshException.readFail(logger, e);
         }

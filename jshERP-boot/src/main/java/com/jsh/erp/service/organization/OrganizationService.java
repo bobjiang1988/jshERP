@@ -117,7 +117,7 @@ public class OrganizationService {
         User userInfo=userService.getCurrentUser();
         String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
-        List <Organization> organList = organizationMapperEx.getOrganizationByParentIds(idArray);
+        List <Organization> organList = idArray.length > 0 ? organizationMapperEx.getOrganizationByParentIds(idArray) : null;
         if(organList!=null && organList.size()>0) {
             //如果存在子机构则不能删除
             logger.error("异常码[{}],异常提示[{}]",

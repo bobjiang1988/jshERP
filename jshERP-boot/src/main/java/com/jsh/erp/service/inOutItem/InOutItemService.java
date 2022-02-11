@@ -141,8 +141,10 @@ public class InOutItemService {
         String [] idArray=StringUtil.strToStringArr(ids);
         //校验财务子表	jsh_accountitem
         List<AccountItem> accountItemList=null;
-        try{
-            accountItemList=accountItemMapperEx.getAccountItemListByInOutItemIds(idArray);
+        try {
+            if (idArray.length > 0) {
+                accountItemList = accountItemMapperEx.getAccountItemListByInOutItemIds(idArray);
+            }
         }catch(Exception e){
             JshException.readFail(logger, e);
         }

@@ -181,7 +181,7 @@ public class AccountService {
         //校验财务主表	jsh_accounthead
         List<AccountHead> accountHeadList=null;
         try{
-            accountHeadList = accountHeadMapperEx.getAccountHeadListByAccountIds(idArray);
+            accountHeadList = idArray.length > 0 ? accountHeadMapperEx.getAccountHeadListByAccountIds(idArray) : null;
         }catch(Exception e){
             JshException.readFail(logger, e);
         }

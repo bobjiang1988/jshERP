@@ -344,8 +344,11 @@ public class DepotHeadService {
         User userInfo=userService.getCurrentUser();
         String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
-        try{
-            result = depotHeadMapperEx.batchDeleteDepotHeadByIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
+        try {
+            if (idArray.length > 0) {
+                result = depotHeadMapperEx.batchDeleteDepotHeadByIds(new Date(),
+                        userInfo == null ? null : userInfo.getId(), idArray);
+            }
         }catch(Exception e){
             JshException.writeFail(logger, e);
         }

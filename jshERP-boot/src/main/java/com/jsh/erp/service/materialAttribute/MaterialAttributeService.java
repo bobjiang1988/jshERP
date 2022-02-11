@@ -145,7 +145,10 @@ public class MaterialAttributeService {
     public int batchDeleteMaterialAttributeByIds(String ids) throws Exception{
         String [] idArray=StringUtil.strToStringArr(ids);
         try{
-            return materialAttributeMapperEx.batchDeleteMaterialAttributeByIds(idArray);
+            if (idArray.length > 0) {
+                return materialAttributeMapperEx.batchDeleteMaterialAttributeByIds(idArray);
+            }
+            return 0;
         }catch(Exception e){
             JshException.writeFail(logger, e);
             return 0;

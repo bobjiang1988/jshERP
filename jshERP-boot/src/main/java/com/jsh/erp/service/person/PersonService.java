@@ -143,7 +143,9 @@ public class PersonService {
         //校验财务主表	jsh_accounthead
         List<AccountHead> accountHeadList =null;
         try{
-            accountHeadList=accountHeadMapperEx.getAccountHeadListByHandsPersonIds(idArray);
+            if (idArray.length > 0) {
+                accountHeadList = accountHeadMapperEx.getAccountHeadListByHandsPersonIds(idArray);
+            }
         }catch(Exception e){
             JshException.readFail(logger, e);
         }

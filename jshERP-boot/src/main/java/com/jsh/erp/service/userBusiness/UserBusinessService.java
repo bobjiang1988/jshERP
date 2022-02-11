@@ -125,7 +125,10 @@ public class UserBusinessService {
         String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
         try{
-            result=  userBusinessMapperEx.batchDeleteUserBusinessByIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
+            if (idArray.length > 0) {
+                result = userBusinessMapperEx.batchDeleteUserBusinessByIds(new Date(),
+                        userInfo == null ? null : userInfo.getId(), idArray);
+            }
         }catch(Exception e){
             JshException.writeFail(logger, e);
         }

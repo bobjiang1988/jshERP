@@ -225,9 +225,8 @@ public class StringUtil {
     }
 
     public static String[] strToStringArr(String str) {
-        List<String> strList = new ArrayList<>();
         if (StringUtils.isEmpty(str) || StringUtils.isEmpty(str.trim())) {
-            return strList.toArray(new String[]{});
+            return new String[]{};
         }
         return str.split(",");
     }

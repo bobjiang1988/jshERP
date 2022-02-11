@@ -248,8 +248,10 @@ public class AccountItemService {
         User userInfo=userService.getCurrentUser();
         String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
-        try{
-            result = accountItemMapperEx.batchDeleteAccountItemByIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
+        try {
+            if (idArray.length > 0) {
+                result = accountItemMapperEx.batchDeleteAccountItemByIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
+            }
         }catch(Exception e){
             JshException.writeFail(logger, e);
         }
