@@ -16,4 +16,7 @@ hs_err_pid*
 /target
 
 **/*.iml
+application-prod.*
+
+logs.*
 
