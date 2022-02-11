@@ -19,9 +19,16 @@ import java.util.regex.Pattern;
 /**
  * 工具类
  *
- * @author jishenghua  qq:7-5-2-7-1-8-9-2-0
+ * @author jishenghua qq:7-5-2-7-1-8-9-2-0
  */
 public class Tools {
+
+    public static SimpleDateFormat getDateFormat(String pattern) {
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        return format;
+    }
+
     /**
      * 获得32位唯一序列号
      *
@@ -37,7 +44,7 @@ public class Tools {
      * @return 格式化后的日期格式
      */
     public static String getNow() {
-        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        return getDateFormat("yyyy-MM-dd").format(new Date());
     }
 
     /**
@@ -46,7 +53,7 @@ public class Tools {
      * @return
      */
     public static String getCurrentMonth() {
-        return new SimpleDateFormat("yyyy-MM").format(new Date());
+        return getDateFormat("yyyy-MM").format(new Date());
     }
 
     /**
@@ -55,8 +62,8 @@ public class Tools {
      * @return
      */
     public static String parseDateToStr(Date date) {
-        if(date!=null) {
-            return new SimpleDateFormat("yyyy-MM-dd").format(date);
+        if (date != null) {
+            return getDateFormat("yyyy-MM-dd").format(date);
         } else {
             return "";
         }
@@ -68,7 +75,7 @@ public class Tools {
      * @return 格式化后的日期格式
      */
     public static String getNow2(Date date) {
-        return new SimpleDateFormat("yyyyMMddHHmmss").format(date);
+        return getDateFormat("yyyyMMddHHmmss").format(date);
     }
 
     /**
@@ -77,7 +84,7 @@ public class Tools {
      * @return 格式化后的日期格式
      */
     public static String getNow3() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        return getDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
 
     /**
@@ -86,11 +93,11 @@ public class Tools {
      * @return 格式化后的日期格式
      */
     public static String getCenternTime(Date date) {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+        return getDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
     }
 
     public static String parseDayToTime(String day, String timeStr) {
-        if(StringUtil.isNotEmpty(day)){
+        if (StringUtil.isNotEmpty(day)) {
             return day + timeStr;
         } else {
             return null;
@@ -103,12 +110,11 @@ public class Tools {
      * @return 格式化后的日期格式
      */
     public static String getTimeInfo(Date date) {
-        return new SimpleDateFormat("mm:ss").format(date);
+        return getDateFormat("mm:ss").format(date);
     }
 
     /**
-     * 获取当前日期是星期几
-     * return 星期几
+     * 获取当前日期是星期几 return 星期几
      */
     public static String getWeekDay() {
         Calendar c = Calendar.getInstance(Locale.CHINA);
@@ -153,7 +159,7 @@ public class Tools {
         if (checkStr == null || checkStr.length() == 0)
             return false;
         return Pattern.compile("^[0-9]*.{1}[0-9]*$").matcher(checkStr).matches();
-//		 return Pattern.compile("：^[0-9]+(.[0-9])*$").matcher(checkStr).matches();
+        // return Pattern.compile("：^[0-9]+(.[0-9])*$").matcher(checkStr).matches();
     }
 
     /**
@@ -164,20 +170,21 @@ public class Tools {
     public static String getPreviousDate() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
-        return new SimpleDateFormat("yyyy-MM").format(cal.getTime());
+        return getDateFormat("yyyy-MM").format(cal.getTime());
     }
 
     /**
      * 获取当前月份的前6个月(含当前月)
-     * @param size  月数
+     * 
+     * @param size 月数
      * @return
      */
     public static List<String> getLastMonths(int size) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        SimpleDateFormat sdf = getDateFormat("yyyy-MM");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         List<String> list = new ArrayList(size);
-        for (int i=0;i<size;i++) {
+        for (int i = 0; i < size; i++) {
             c.setTime(new Date());
             c.add(Calendar.MONTH, -i);
             Date m = c.getTime();
@@ -206,22 +213,22 @@ public class Tools {
      * @return 组合后的字符串 ^[0-9a-zA-Z]
      */
     public static String getRandomChar() {
-        //生成一个0、1、2的随机数字
+        // 生成一个0、1、2的随机数字
         int rand = (int) Math.round(Math.random() * 1);
         long itmp = 0;
         char ctmp = '\u0000';
         switch (rand) {
-            //生成大写字母 + 1000以内数字
+            // 生成大写字母 + 1000以内数字
             case 1:
                 itmp = Math.round(Math.random() * 25 + 65);
                 ctmp = (char) itmp;
                 return String.valueOf(ctmp) + (int) Math.random() * 1000;
-            //生成小写字母
+            // 生成小写字母
             case 2:
                 itmp = Math.round(Math.random() * 25 + 97);
                 ctmp = (char) itmp;
                 return String.valueOf(ctmp) + (int) Math.random() * 1000;
-            //生成数字
+            // 生成数字
             default:
                 itmp = Math.round(Math.random() * 1000);
                 return itmp + "";
@@ -344,13 +351,14 @@ public class Tools {
         }
         return ip;
     }
+
     /**
      * 获取访问者IP
      *
      * 在一般情况下使用Request.getRemoteAddr()即可，但是经过nginx等反向代理软件后，这个方法会失效。
      *
-     * 本方法先从Header中获取X-Real-IP，如果不存在再从X-Forwarded-For获得第一个IP(用,分割)，
-     * 如果还不存在则调用Request .getRemoteAddr()。
+     * 本方法先从Header中获取X-Real-IP，如果不存在再从X-Forwarded-For获得第一个IP(用,分割)， 如果还不存在则调用Request
+     * .getRemoteAddr()。
      *
      * @param request
      * @return
@@ -452,11 +460,12 @@ public class Tools {
     public static String getBeforeMonth(int beforeMonth) {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MONTH, -beforeMonth);
-        return new SimpleDateFormat("yyyy-MM").format(c.getTime());
+        return getDateFormat("yyyy-MM").format(c.getTime());
     }
 
     /**
      * 根据月份获取当月第一天
+     * 
      * @param monthTime
      * @return
      * @throws ParseException
@@ -467,17 +476,18 @@ public class Tools {
 
     /**
      * 根据月份获取当月最后一天
+     * 
      * @param monthTime
      * @return
      * @throws ParseException
      */
     public static String lastDayOfMonth(String monthTime) throws ParseException {
-        Date date = new SimpleDateFormat("yyyy-MM").parse(monthTime);
+        Date date = getDateFormat("yyyy-MM").parse(monthTime);
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.roll(Calendar.DAY_OF_MONTH, -1);
-        return new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+        return getDateFormat("yyyy-MM-dd").format(cal.getTime());
     }
 
     /**
@@ -536,7 +546,7 @@ public class Tools {
      * @return 处理后的字符串类型
      */
     public static String getNowTime() {
-        return new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+        return getDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
     }
 
     /**
@@ -549,7 +559,7 @@ public class Tools {
         // Runtime.getRuntime().exec("cmd /c start "+filePath);
         // 解决路径中带空格问题
         Runtime r = Runtime.getRuntime();
-        String[] cmdArray = new String[]{"cmd.exe", "/c", viewFilePath};
+        String[] cmdArray = new String[] {"cmd.exe", "/c", viewFilePath};
         try {
             r.exec(cmdArray);
         } catch (IOException e) {
@@ -589,7 +599,8 @@ public class Tools {
         StringBuffer buffer = new StringBuffer();
         char[] chars = s.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            if ((chars[i] >= 19968 && chars[i] <= 40869) || (chars[i] >= 97 && chars[i] <= 122) || (chars[i] >= 65 && chars[i] <= 90)) {
+            if ((chars[i] >= 19968 && chars[i] <= 40869) || (chars[i] >= 97 && chars[i] <= 122)
+                    || (chars[i] >= 65 && chars[i] <= 90)) {
                 buffer.append(chars[i]);
             }
         }
@@ -612,7 +623,7 @@ public class Tools {
     }
 
     /**
-     * 判断是否插件URL 
+     * 判断是否插件URL
      *
      * @return
      */
@@ -637,12 +648,13 @@ public class Tools {
 
     /**
      * 根据token截取租户id
+     * 
      * @param token
      * @return
      */
     public static Long getTenantIdByToken(String token) {
         Long tenantId = 0L;
-        if(StringUtil.isNotEmpty(token) && token.indexOf("_")>-1) {
+        if (StringUtil.isNotEmpty(token) && token.indexOf("_") > -1) {
             String[] tokenArr = token.split("_");
             if (tokenArr.length == 2) {
                 tenantId = Long.parseLong(tokenArr[1]);
@@ -660,21 +672,21 @@ public class Tools {
      * @throws ParseException
      * @author jishenghua
      */
-    public static Date parse(String strDate, String pattern)
-            throws ParseException {
-        return new SimpleDateFormat(pattern).parse(strDate);
+    public static Date parse(String strDate, String pattern) throws ParseException {
+        return getDateFormat(pattern).parse(strDate);
     }
 
     public static Date addDays(Date date, int num) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date); //需要将date数据转移到Calender对象中操作
-        calendar.add(calendar.DATE, num);//把日期往后增加n天.正数往后推,负数往前移动
-        date=calendar.getTime();   //这个时间就是日期往后推一天的结果
+        calendar.setTime(date); // 需要将date数据转移到Calender对象中操作
+        calendar.add(calendar.DATE, num);// 把日期往后增加n天.正数往后推,负数往前移动
+        date = calendar.getTime(); // 这个时间就是日期往后推一天的结果
         return date;
     }
 
     /**
      * 生成随机数字和字母组合
+     * 
      * @param length
      * @return
      */
@@ -690,15 +702,15 @@ public class Tools {
         return valSb.toString();
     }
 
-//	/**
-//	 * 过滤html文件中的图片文件
-//	 * @param content
-//	 * @return
-//	 */
-//	public static String filterImg(String content)
-//	{
-//		return content.matches("/<img(?:.|\\s)*?>/g");
-//	}
+    // /**
+    // * 过滤html文件中的图片文件
+    // * @param content
+    // * @return
+    // */
+    // public static String filterImg(String content)
+    // {
+    // return content.matches("/<img(?:.|\\s)*?>/g");
+    // }
 
     public static void main(String[] args) {
         String aa = "的付的反对法的发的说法";
