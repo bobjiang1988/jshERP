@@ -1,0 +1,13 @@
+version: '2'
+services:
+  luteng-erp:
+    container_name: luteng-erp-api
+    image: luteng/erp-api
+    build: ./
+    restart: always
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '10'
+    ports:
+      - 9999:9999

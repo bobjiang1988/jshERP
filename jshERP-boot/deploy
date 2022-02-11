@@ -1,0 +1,5 @@
+#!/bin/bash
+
+git pull --rebase
+mvn clean install
+docker-compose up -d --build
