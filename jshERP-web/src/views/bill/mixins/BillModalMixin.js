@@ -327,6 +327,7 @@ export const BillModalMixin = {
           }
           break;
         case "barCode":
+        case "name":
           param = {
             barCode: value,
             mpList: getMpListShort(Vue.ls.get('materialPropertyList')),  //扩展属性
@@ -364,7 +365,7 @@ export const BillModalMixin = {
                 })
               } else {
                 //单个条码
-                findStockByDepotAndBarCode({ depotId: row.depotId, barCode: row.barCode }).then((res) => {
+                findStockByDepotAndBarCode({ depotId: row.depotId, barCode: value }).then((res) => {
                   if (res && res.code === 200) {
                     let mArr = []
                     let mInfo = mList[0]
