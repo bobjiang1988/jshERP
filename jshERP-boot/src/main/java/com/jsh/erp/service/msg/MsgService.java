@@ -216,7 +216,7 @@ public class MsgService {
         logService.insertLog("序列号",
                 new StringBuffer(BusinessConstants.LOG_OPERATION_TYPE_DELETE).append(ids).toString(),
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
         try{
             result=msgMapperEx.batchDeleteMsgByIds(idArray);

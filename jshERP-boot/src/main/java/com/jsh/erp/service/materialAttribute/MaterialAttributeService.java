@@ -143,7 +143,7 @@ public class MaterialAttributeService {
 
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteMaterialAttributeByIds(String ids) throws Exception{
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         try{
             return materialAttributeMapperEx.batchDeleteMaterialAttributeByIds(idArray);
         }catch(Exception e){

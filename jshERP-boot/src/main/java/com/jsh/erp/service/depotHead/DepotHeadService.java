@@ -192,7 +192,7 @@ public class DepotHeadService {
         String creator = getCreatorByRoleType(roleType);
         String [] creatorArray=null;
         if(StringUtil.isNotEmpty(creator)){
-            creatorArray = creator.split(",");
+            creatorArray = StringUtil.strToStringArr(creator);
         }
         return creatorArray;
     }
@@ -342,7 +342,7 @@ public class DepotHeadService {
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteDepotHeadByIds(String ids)throws Exception {
         User userInfo=userService.getCurrentUser();
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
         try{
             result = depotHeadMapperEx.batchDeleteDepotHeadByIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
@@ -703,7 +703,7 @@ public class DepotHeadService {
         if(StringUtil.isNotEmpty(depotHead.getAccountMoneyList())) {
             //校验多账户的结算金额
             String accountMoneyList = depotHead.getAccountMoneyList().replace("[", "").replace("]", "").replaceAll("\"", "");
-            int sum = StringUtil.getArrSum(accountMoneyList.split(","));
+            int sum = StringUtil.getArrSum(StringUtil.strToStringArr(accountMoneyList));
             BigDecimal manyAccountSum = BigDecimal.valueOf(sum).abs();
             if(manyAccountSum.compareTo(depotHead.getChangeAmount().abs())!=0) {
                 throw new BusinessRunTimeException(ExceptionConstants.DEPOT_HEAD_MANY_ACCOUNT_FAILED_CODE,
@@ -770,7 +770,7 @@ public class DepotHeadService {
         if(StringUtil.isNotEmpty(depotHead.getAccountMoneyList())) {
             //校验多账户的结算金额
             String accountMoneyList = depotHead.getAccountMoneyList().replace("[", "").replace("]", "").replaceAll("\"", "");
-            int sum = StringUtil.getArrSum(accountMoneyList.split(","));
+            int sum = StringUtil.getArrSum(StringUtil.strToStringArr(accountMoneyList));
             BigDecimal manyAccountSum = BigDecimal.valueOf(sum).abs();
             if(manyAccountSum.compareTo(depotHead.getChangeAmount().abs())!=0) {
                 throw new BusinessRunTimeException(ExceptionConstants.DEPOT_HEAD_MANY_ACCOUNT_FAILED_CODE,
@@ -824,7 +824,7 @@ public class DepotHeadService {
         List<DepotHeadVo4List> resList = new ArrayList<>();
         try{
             String depotIds = depotService.findDepotStrByCurrentUser();
-            String [] depotArray=depotIds.split(",");
+            String [] depotArray=StringUtil.strToStringArr(depotIds);
             String [] creatorArray = getCreatorArray(roleType);
             beginTime = Tools.parseDayToTime(beginTime,BusinessConstants.DAY_FIRST_TIME);
             endTime = Tools.parseDayToTime(endTime,BusinessConstants.DAY_LAST_TIME);

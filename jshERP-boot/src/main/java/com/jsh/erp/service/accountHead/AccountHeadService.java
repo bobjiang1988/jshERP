@@ -144,7 +144,7 @@ public class AccountHeadService {
         }
         String [] creatorArray=null;
         if(StringUtil.isNotEmpty(creator)){
-            creatorArray = creator.split(",");
+            creatorArray = StringUtil.strToStringArr(creator);
         }
         return creatorArray;
     }
@@ -202,7 +202,7 @@ public class AccountHeadService {
             }
         }
         User userInfo=userService.getCurrentUser();
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         //删除主表
         accountItemMapperEx.batchDeleteAccountItemByHeadIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
         //删除子表

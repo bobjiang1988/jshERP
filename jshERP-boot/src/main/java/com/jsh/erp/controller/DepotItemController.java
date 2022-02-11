@@ -175,7 +175,7 @@ public class DepotItemController {
             if(headerId != 0) {
                 dataList = depotItemService.getDetailList(headerId);
             }
-            String[] mpArr = mpList.split(",");
+            String[] mpArr = StringUtil.strToStringArr(mpList);
             JSONObject outer = new JSONObject();
             outer.put("total", dataList.size());
             //存放数据json数组
@@ -293,7 +293,7 @@ public class DepotItemController {
             List<Long> depotList = StringUtil.strToLongList(depotIds);
             List<DepotItemVo4WithInfoEx> dataList = depotItemService.findByAll(StringUtil.toNull(materialParam),
                     timeB,(currentPage-1)*pageSize, pageSize);
-            String[] mpArr = mpList.split(",");
+            String[] mpArr = StringUtil.strToStringArr(mpList);
             int total = depotItemService.findByAllCount(StringUtil.toNull(materialParam), timeB);
             map.put("total", total);
             //存放数据json数组
@@ -415,7 +415,7 @@ public class DepotItemController {
         try {
             List<DepotItemVo4WithInfoEx> dataList = depotItemService.findByAll(StringUtil.toNull(materialParam),
                     endTime, (currentPage-1)*pageSize, pageSize);
-            String[] mpArr = mpList.split(",");
+            String[] mpArr = StringUtil.strToStringArr(mpList);
             int total = depotItemService.findByAllCount(StringUtil.toNull(materialParam), endTime);
             map.put("total", total);
             //存放数据json数组
@@ -481,7 +481,7 @@ public class DepotItemController {
         try {
             List<DepotItemVo4WithInfoEx> dataList = depotItemService.findByAll(StringUtil.toNull(materialParam),
                     endTime,(currentPage-1)*pageSize, pageSize);
-            String[] mpArr = mpList.split(",");
+            String[] mpArr = StringUtil.strToStringArr(mpList);
             int total = depotItemService.findByAllCount(StringUtil.toNull(materialParam), endTime);
             map.put("total", total);
             //存放数据json数组
@@ -570,7 +570,7 @@ public class DepotItemController {
                     depotList.add(object.getLong("id"));
                 }
             }
-            String[] mpArr = mpList.split(",");
+            String[] mpArr = StringUtil.strToStringArr(mpList);
             List<DepotItemStockWarningCount> list = depotItemService.findStockWarningCount((currentPage-1)*pageSize, pageSize, materialParam, depotList);
             //存放数据json数组
             if (null != list) {

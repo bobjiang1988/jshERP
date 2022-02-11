@@ -162,7 +162,7 @@ public class UnitService {
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteUnitByIds(String ids)throws Exception {
         int result=0;
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         //校验产品表	jsh_material
         List<Material> materialList=null;
         try{

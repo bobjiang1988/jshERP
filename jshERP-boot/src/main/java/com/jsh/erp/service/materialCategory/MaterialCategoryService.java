@@ -169,7 +169,7 @@ public class MaterialCategoryService {
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteMaterialCategoryByIds(String ids) throws Exception {
         int result=0;
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         //校验产品表	jsh_material
         List<Material> materialList=null;
         try{
@@ -196,7 +196,7 @@ public class MaterialCategoryService {
         //更新人
         User userInfo=userService.getCurrentUser();
         Long updater=userInfo==null?null:userInfo.getId();
-        String strArray[]=ids.split(",");
+        String strArray[]=StringUtil.strToStringArr(ids);
         if(strArray.length<1){
             return 0;
         }

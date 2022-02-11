@@ -149,7 +149,7 @@ public class MaterialController {
                                                 HttpServletRequest request) throws Exception{
         BaseResponseInfo res = new BaseResponseInfo();
         try {
-            String[] mpArr = mpList.split(",");
+            String[] mpArr = StringUtil.strToStringArr(mpList);
             MaterialVo4Unit mu = new MaterialVo4Unit();
             List<MaterialVo4Unit> list = materialService.findByIdWithBarCode(meId);
             if(list!=null && list.size()>0) {
@@ -199,7 +199,7 @@ public class MaterialController {
         JSONObject object = new JSONObject();
         try {
             List<MaterialVo4Unit> dataList = materialService.findBySelectWithBarCode(categoryId, q, (currentPage-1)*pageSize, pageSize);
-            String[] mpArr = mpList.split(",");
+            String[] mpArr = StringUtil.strToStringArr(mpList);
             int total = materialService.findBySelectWithBarCodeCount(categoryId, q);
             object.put("total", total);
             JSONArray dataArray = new JSONArray();
@@ -290,7 +290,7 @@ public class MaterialController {
                                         HttpServletRequest request) throws Exception{
         JSONObject item = new JSONObject();
         try {
-            String[] mpArr = mpList.split(",");
+            String[] mpArr = StringUtil.strToStringArr(mpList);
             List<MaterialVo4Unit> materialList = materialService.getMaterialByMeId(meId);
             if(materialList!=null && materialList.size()!=1) {
                 return item;
@@ -508,7 +508,7 @@ public class MaterialController {
                                           HttpServletRequest request) throws Exception {
         BaseResponseInfo res = new BaseResponseInfo();
         try {
-            String[] mpArr = mpList.split(",");
+            String[] mpArr = StringUtil.strToStringArr(mpList);
             List<MaterialVo4Unit> list = materialService.getMaterialByBarCode(barCode);
             if(list!=null && list.size()>0) {
                 for(MaterialVo4Unit mvo: list) {

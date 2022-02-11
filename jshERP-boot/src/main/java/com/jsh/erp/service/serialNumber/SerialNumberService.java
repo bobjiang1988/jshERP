@@ -168,7 +168,7 @@ public class SerialNumberService {
         logService.insertLog("序列号", sb.toString(),
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
         User userInfo=userService.getCurrentUser();
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
         try{
             result = serialNumberMapperEx.batchDeleteSerialNumberByIds(new Date(),userInfo==null?null:userInfo.getId(),idArray);
@@ -287,7 +287,7 @@ public class SerialNumberService {
     public int sellSerialNumber(Long materialId, String outBillNo, String snList, User user) throws Exception{
         int result=0;
         try{
-            String [] snArray=snList.split(",");
+            String [] snArray=StringUtil.strToStringArr(snList);
             result = serialNumberMapperEx.sellSerialNumber(materialId, outBillNo, snArray, new Date(),user==null?null:user.getId());
         }catch(Exception e){
             JshException.writeFail(logger, e);

@@ -194,7 +194,7 @@ public class StringUtil {
      */
     public static List<Long> strToLongList(String strArr) {
         List<Long> idList=new ArrayList<Long>();
-        String[] d=strArr.split(",");
+        String[] d=StringUtil.strToStringArr(strArr);
         for (int i = 0, size = d.length; i < size; i++) {
             if(d[i]!=null) {
                 idList.add(Long.parseLong(d[i]));
@@ -215,13 +215,21 @@ public class StringUtil {
             return null;
         }
         List<String> idList=new ArrayList<String>();
-        String[] d=strArr.split(",");
+        String[] d=StringUtil.strToStringArr(strArr);
         for (int i = 0, size = d.length; i < size; i++) {
             if(d[i]!=null) {
                 idList.add(d[i].toString());
             }
         }
         return idList;
+    }
+
+    public static String[] strToStringArr(String str) {
+        List<String> strList = new ArrayList<>();
+        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(str.trim())) {
+            return strList.toArray(new String[]{});
+        }
+        return str.split(",");
     }
 
     public static List<String> searchCondition(String search) {

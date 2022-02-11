@@ -139,7 +139,7 @@ public class PersonService {
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeletePersonByIds(String ids)throws Exception {
         int result =0;
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         //校验财务主表	jsh_accounthead
         List<AccountHead> accountHeadList =null;
         try{

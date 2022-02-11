@@ -115,7 +115,7 @@ public class OrganizationService {
         logService.insertLog("机构", sb.toString(),
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
         User userInfo=userService.getCurrentUser();
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         int result=0;
         List <Organization> organList = organizationMapperEx.getOrganizationByParentIds(idArray);
         if(organList!=null && organList.size()>0) {

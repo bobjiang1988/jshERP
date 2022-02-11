@@ -273,7 +273,7 @@ public class UserService {
         }
         logService.insertLog("用户", sb.toString(),
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
-        String idsArray[]=ids.split(",");
+        String idsArray[]=StringUtil.strToStringArr(ids);
         try{
             result=userMapperEx.batDeleteOrUpdateUser(idsArray,BusinessConstants.USER_STATUS_DELETE);
         }catch(Exception e){
@@ -746,7 +746,7 @@ public class UserService {
             if(values!=null) {
                 values = values.replaceAll("\\[\\]",",").replace("[","").replace("]","");
             }
-            String [] valueArray=values.split(",");
+            String [] valueArray=StringUtil.strToStringArr(values);
             if(valueArray.length>0) {
                 roleId = valueArray[0];
             }

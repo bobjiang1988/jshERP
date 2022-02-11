@@ -110,7 +110,7 @@ public class MaterialService {
             throws Exception{
         String[] mpArr = new String[]{};
         if(StringUtil.isNotEmpty(mpList)){
-            mpArr= mpList.split(",");
+            mpArr= StringUtil.strToStringArr(mpList);
         }
         List<MaterialVo4Unit> resList = new ArrayList<>();
         List<MaterialVo4Unit> list =null;
@@ -271,7 +271,7 @@ public class MaterialService {
 
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteMaterialByIds(String ids) throws Exception{
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         //校验单据子表	jsh_depot_item
         List<DepotItem> depotItemList =null;
         try{
@@ -870,7 +870,7 @@ public class MaterialService {
     }
 
     public List<MaterialVo4Unit> getMaterialByBarCode(String barCode) {
-        String [] barCodeArray=barCode.split(",");
+        String [] barCodeArray=StringUtil.strToStringArr(barCode);
         return materialMapperEx.getMaterialByBarCode(barCodeArray);
     }
 

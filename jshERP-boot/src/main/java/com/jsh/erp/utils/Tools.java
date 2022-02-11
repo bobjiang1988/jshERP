@@ -381,7 +381,7 @@ public class Tools {
      * @return 转化后的ID值数组
      */
     public static int[] changeDataForm(String data) {
-        String[] dataStr = data.split(",");
+        String[] dataStr = StringUtil.strToStringArr(data);
         int[] dataInt = new int[dataStr.length];
         for (int i = 0; i < dataStr.length; i++)
             dataInt[i] = Integer.parseInt(dataStr[i]);

@@ -183,7 +183,7 @@ public class DepotService {
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteDepotByIds(String ids)throws Exception {
         int result=0;
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         //校验单据子表	jsh_depot_item
         List<DepotItem> depotItemList=null;
         try{
@@ -295,7 +295,7 @@ public class DepotService {
                     String depotStr = list.get(0).getValue();
                     if(StringUtil.isNotEmpty(depotStr)){
                         depotStr = depotStr.replaceAll("\\[", "").replaceAll("]", ",");
-                        String[] depotArr = depotStr.split(",");
+                        String[] depotArr = StringUtil.strToStringArr(depotStr);
                         for (Depot depot : dataList) {
                             for(String depotId: depotArr) {
                                 if(depot.getId() == Long.parseLong(depotId)){

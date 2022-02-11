@@ -138,7 +138,7 @@ public class InOutItemService {
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteInOutItemByIds(String ids)throws Exception {
         int result = 0;
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         //校验财务子表	jsh_accountitem
         List<AccountItem> accountItemList=null;
         try{

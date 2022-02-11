@@ -177,7 +177,7 @@ public class AccountService {
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteAccountByIds(String ids) throws Exception{
         int result=0;
-        String [] idArray=ids.split(",");
+        String[] idArray= StringUtil.strToStringArr(ids);
         //校验财务主表	jsh_accounthead
         List<AccountHead> accountHeadList=null;
         try{
@@ -451,8 +451,8 @@ public class AccountService {
                     if(StringUtil.isNotEmpty(accountIdList) && StringUtil.isNotEmpty(accountMoneyList)) {
                         accountIdList = accountIdList.replace("[", "").replace("]", "").replace("\"", "");
                         accountMoneyList = accountMoneyList.replace("[", "").replace("]", "").replace("\"", "");
-                        String[] aList = accountIdList.split(",");
-                        String[] amList = accountMoneyList.split(",");
+                        String[] aList = StringUtil.strToStringArr(accountIdList);
+                        String[] amList = StringUtil.strToStringArr(accountMoneyList);
                         for (int i = 0; i < aList.length; i++) {
                             if (aList[i].toString().equals(id.toString())) {
                                 if(amList!=null && amList.length>0) {

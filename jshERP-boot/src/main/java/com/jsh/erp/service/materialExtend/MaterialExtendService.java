@@ -296,7 +296,7 @@ public class MaterialExtendService {
 
     @Transactional(value = "transactionManager", rollbackFor = Exception.class)
     public int batchDeleteMaterialExtendByIds(String ids, HttpServletRequest request) throws Exception{
-        String [] idArray=ids.split(",");
+        String [] idArray=StringUtil.strToStringArr(ids);
         int result = 0;
         try{
             result = materialExtendMapperEx.batchDeleteMaterialExtendByIds(idArray);
